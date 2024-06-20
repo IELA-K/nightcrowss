@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Boss Respawn Scheduler</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            position: relative; /* Added for positioning the footer */
+        }
+        .container {
+            display: flex;
+            justify-content: space-around;
+            max-width: 1600px; /* Adjusted max-width to accommodate more columns */
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            width: 100%;
+        }
+        .boss-section {
+            flex: 1;
+            margin: 0 10px;
+        }
+        .boss-section h2 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .form-group button:disabled {
+            background-color: #ccc;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background: #e0e0e0;
+            border-radius: 4px;
+        }
+        .result p {
+            margin: 0;
+            color: #333;
+        }
+        .footer {
+            position: absolute;
+            bottom: -30px; /* Adjust as needed */
+            right: 0;
+            color: #333;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <h1>TEAMS 105 BATTLEFRONT</h1>
+    <div class="container">
+        <div class="boss-section" id="boss1Section">
+            <h2>Forgotten Anggolt</h2>
+            <div class="form-group">
+                <label for="deathTimeBoss1">Time of Death:</label>
+                <input type="time" id="deathTimeBoss1">
+            </div>
+            <div class="form-group">
+                <label for="locationBoss1">Select Location:</label>
+                <select id="locationBoss1">
+                    <option value="" selected disabled>Select Location</option>
+                    <option value="Belligerence">Belligerence</option>
+                    <option value="Unity">Unity</option>
+                    <option value="Victory">Victory</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button id="enterBoss1" onclick="calculateRespawn('Boss1')">Enter</button>
+            </div>
+            <div class="result" id="resultBoss1">
+                <p id="resultTextBoss1Belligerence">Belligerence: N/A</p>
+                <p id="resultTextBoss1Unity">Unity: N/A</p>
+                <p id="resultTextBoss1Victory">Victory: N/A</p>
+            </div>
+        </div>
+        <div class="boss-section" id="boss2Section">
+            <h2>Forgotten Kiaron</h2>
+            <div class="form-group">
+                <label for="deathTimeBoss2">Time of Death:</label>
+                <input type="time" id="deathTimeBoss2">
+            </div>
+            <div class="form-group">
+                <label for="locationBoss2">Select Location:</label>
+                <select id="locationBoss2">
+                    <option value="" selected disabled>Select Location</option>
+                    <option value="Belligerence">Belligerence</option>
+                    <option value="Unity">Unity</option>
+                    <option value="Victory">Victory</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button id="enterBoss2" onclick="calculateRespawn('Boss2')">Enter</button>
+            </div>
+            <div class="result" id="resultBoss2">
+                <p id="resultTextBoss2Belligerence">Belligerence: N/A</p>
+                <p id="resultTextBoss2Unity">Unity: N/A</p>
+                <p id="resultTextBoss2Victory">Victory: N/A</p>
+            </div>
+        </div>
+        <div class="boss-section" id="boss3Section">
+            <h2>Forgotten Grish</h2>
+            <div class="form-group">
+                <label for="deathTimeBoss3">Time of Death:</label>
+                <input type="time" id="deathTimeBoss3">
+            </div>
+            <div class="form-group">
+                <label for="locationBoss3">Select Location:</label>
+                <select id="locationBoss3">
+                    <option value="" selected disabled>Select Location</option>
+                    <option value="Belligerence">Belligerence</option>
+                    <option value="Unity">Unity</option>
+                    <option value="Victory">Victory</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button id="enterBoss3" onclick="calculateRespawn('Boss3')">Enter</button>
+            </div>
+            <div class="result" id="resultBoss3">
+                <p id="resultTextBoss3Belligerence">Belligerence: N/A</p>
+                <p id="resultTextBoss3Unity">Unity: N/A</p>
+                <p id="resultTextBoss3Victory">Victory: N/A</p>
+            </div>
+        </div>
+        <div class="boss-section" id="boss4Section">
+            <h2>Forgotten Inferno</h2>
+            <div class="form-group">
+                <label for="deathTimeBoss4">Time of Death:</label>
+                <input type="time" id="deathTimeBoss4">
+            </div>
+            <div class="form-group">
+                <label for="locationBoss4">Select Location:</label>
+                <select id="locationBoss4">
+                    <option value="" selected disabled>Select Location</option>
+                    <option value="Belligerence">Belligerence</option>
+                    <option value="Unity">Unity</option>
+                    <option value="Victory">Victory</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button id="enterBoss4" onclick="calculateRespawn('Boss4')">Enter</button>
+            </div>
+            <div class="result" id="resultBoss4">
+                <p id="resultTextBoss4Belligerence">Belligerence: N/A</p>
+                <p id="resultTextBoss4Unity">Unity: N/A</p>
+                <p id="resultTextBoss4Victory">Victory: N/A</p>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <p>Ponnn 105 Bishop</p>
+    </div>
+    <script>
+        const respawnHours = {
+            boss1: 4, // Estimated respawn time for Boss 1 in hours
+            boss2: 5, // Estimated respawn time for Boss 2 in hours
+            boss3: 6, // Estimated respawn time for Boss 3 in hours
+            boss4: 7  // Estimated respawn time for Boss 4 in hours
+        };
+
+        function calculateRespawn(bossId) {
+            const deathTimeInput = document.getElementById(`deathTime${bossId}`).value;
+            const locationInput = document.getElementById(`location${bossId}`).value;
+            if (!deathTimeInput || !locationInput) {
+                alert('Please enter a valid time of death and select a location.');
+                return;
+            }
+
+            const [hours, minutes] = deathTimeInput.split(':');
+            const deathTime = new Date();
+            deathTime.setHours(hours);
+            deathTime.setMinutes(minutes);
+
+            const respawnTime = new Date(deathTime.getTime() + respawnHours[bossId.toLowerCase()] * 60 * 60 * 1000);
+            const formattedRespawnTime = respawnTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            updateLocation(bossId, locationInput, formattedRespawnTime);
+
+            // Save state to localStorage
+            localStorage.setItem(`deathTime${bossId}`, deathTimeInput);
+            localStorage.setItem(`location${bossId}`, locationInput);
+            localStorage.setItem(`resultText${bossId}${locationInput}`, formattedRespawnTime);
+
+            // Reset inputs
+            document.getElementById(`deathTime${bossId}`).value = '';
+            document.getElementById(`location${bossId}`).selectedIndex = 0;
+        }
+
+        function updateLocation(bossId, location, respawnTime) {
+            document.getElementById(`resultText${bossId}${location}`).textContent = `${location}: ${respawnTime}`;
+        }
+
+        function updateAllLocationsToNA(bossId) {
+            const locations = ['Belligerence', 'Unity', 'Victory'];
+
+            locations.forEach((location) => {
+                document.getElementById(`resultText${bossId}${location}`).textContent = `${location}: N/A`;
+            });
+        }
+
+        function loadState() {
+            const bosses = ['Boss1', 'Boss2', 'Boss3', 'Boss4'];
+            const locations = ['Belligerence', 'Unity', 'Victory'];
+
+            bosses.forEach(bossId => {
+                locations.forEach(location => {
+                    const storedTime = localStorage.getItem(`resultText${bossId}${location}`);
+                    if (storedTime) {
+                        document.getElementById(`resultText${bossId}${location}`).textContent = `${location}: ${storedTime}`;
+                    }
+                });
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', loadState);
+    </script>
+</body>
+</html>
